@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.example.emotiwave.application.dto.in.DadosAuthRequestDto;
+import org.example.emotiwave.application.dto.in.UsuarioCreateRequestDto;
 import org.example.emotiwave.application.dto.out.DadosTokenJwtResponseDto;
 import org.example.emotiwave.application.service.AutenticacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
         name = "Autenticação",
         description = "Gerenciamento de autenticações"
 )
+
 public class AutenticacaoController {
     @Autowired
     private AutenticacaoService autenticacaoService;
@@ -56,5 +58,11 @@ public class AutenticacaoController {
     public ResponseEntity efetuarAutenticacao(@RequestBody @Valid DadosAuthRequestDto dados) {
         String tokenJWT = this.autenticacaoService.autenticar(dados);
         return ResponseEntity.ok(new DadosTokenJwtResponseDto(tokenJWT));
+    }
+
+    @PostMapping("/criar")
+    public ResponseEntity criarUsuario(@RequestBody UsuarioCreateRequestDto dados) {
+        autenticacaoService.criarUsuario(dados);
+        return ResponseEntity.status(201).build();
     }
 }
