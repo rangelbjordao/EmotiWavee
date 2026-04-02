@@ -40,7 +40,16 @@ public class SpotifyClient {
     public String construirAutorizacao(String authHeader) {
         String jwt = authHeader.replace("Bearer ", "");
 
-        return UriComponentsBuilder.fromHttpUrl("https://accounts.spotify.com/authorize").queryParam("client_id", this.clientId).queryParam("response_type", "code").queryParam("redirect_uri", redirectUri).queryParam("scope", scopes).queryParam("state", jwt).build().toUriString();
+        return UriComponentsBuilder
+                .fromHttpUrl("https://accounts.spotify.com/authorize")
+                .queryParam("client_id", this.clientId)
+                .queryParam("response_type", "code")
+                .queryParam("redirect_uri", redirectUri)
+                .queryParam("scope", scopes)
+                .queryParam("state", jwt)
+                .queryParam("show_dialog", "true") // 👈 ESSENCIAL
+                .build()
+                .toUriString();
     }
 
     public AccessTokenResponseDto exchangeCodeForTokens(String code) {
