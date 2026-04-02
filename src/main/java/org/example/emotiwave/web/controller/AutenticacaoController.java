@@ -12,12 +12,12 @@ import org.example.emotiwave.application.dto.in.DadosAuthRequestDto;
 import org.example.emotiwave.application.dto.in.UsuarioCreateRequestDto;
 import org.example.emotiwave.application.dto.out.DadosTokenJwtResponseDto;
 import org.example.emotiwave.application.service.AutenticacaoService;
+import org.example.emotiwave.domain.exceptions.AutenticacaoFalhou;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping({"/auth"})
@@ -64,5 +64,15 @@ public class AutenticacaoController {
     public ResponseEntity criarUsuario(@RequestBody UsuarioCreateRequestDto dados) {
         autenticacaoService.criarUsuario(dados);
         return ResponseEntity.status(201).build();
+    }
+
+    @ExceptionHandler(AutenticacaoFalhou.class)
+    public ResponseEntity<Map<String, String>> handleAutenticacaoFalhou(AutenticacaoFalhou ex) {
+        return ResponseEntity.status(401).body(Map.of("mensagem", ex.getMessage()));
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.status(400).body(Map.of("mensagem", ex.getMessage()));
     }
 }
