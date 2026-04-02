@@ -53,7 +53,55 @@ public class SpotifyController {
         Usuario usuario = this.tokenService.getUsuarioFromToken(jwt);
         System.out.println(code);
         this.spotifyService.exchangeCodeForTokens(code, usuario);
-        return ResponseEntity.ok(code);
+        return ResponseEntity.ok("""
+                <!DOCTYPE html>
+                <html>
+                <head>
+                  <title>Conectado</title>
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <style>
+                    body {
+                      font-family: Arial, sans-serif;
+                      text-align: center;
+                      margin-top: 60px;
+                      padding: 20px;
+                    }
+                
+                    h2 {
+                      color: #1DB954;
+                    }
+                
+                    button {
+                      margin-top: 20px;
+                      padding: 12px 20px;
+                      font-size: 16px;
+                      border: none;
+                      border-radius: 8px;
+                      background-color: #1DB954;
+                      color: white;
+                      cursor: pointer;
+                    }
+                
+                    button:active {
+                      opacity: 0.8;
+                    }
+                  </style>
+                </head>
+                <body>
+                  <h2>Spotify conectado!</h2>
+                  <p>Você já pode voltar para o aplicativo.</p>
+                
+                  <button onclick="window.close()">Fechar</button>
+                
+                  <script>
+                    // tenta fechar automaticamente
+                    setTimeout(() => {
+                      window.close();
+                    }, 2000);
+                  </script>
+                </body>
+                </html>
+                """);
     }
 
     @GetMapping("/status")
