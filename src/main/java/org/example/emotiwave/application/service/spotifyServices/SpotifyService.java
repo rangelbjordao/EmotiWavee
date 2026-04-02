@@ -71,4 +71,11 @@ public class SpotifyService {
         String urlMontada = "https://api.spotify.com/v1/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&type=track&limit=1";
         return (MusicaSimplesDto)this.spotifyClient.enviarRequisicaoSpotifyUtils(usuario, urlMontada, parameterizedTypeReference, (Long)null);
     }
+
+    public void desconectar(Usuario usuario) {
+        if (usuario.getSpotifyInfo() != null) {
+            usuario.setSpotifyInfo(null);
+        }
+        usuarioRepository.save(usuario);
+    }
 }
