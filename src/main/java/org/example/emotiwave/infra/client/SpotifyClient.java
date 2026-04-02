@@ -7,9 +7,11 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Optional;
+
 import org.example.emotiwave.application.dto.out.AccessTokenResponseDto;
 import org.example.emotiwave.domain.entities.Usuario;
 import org.example.emotiwave.domain.exceptions.FalhaAoPegarTokenAcess;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -24,13 +26,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class SpotifyClient {
     private final ObjectMapper objectMapper;
-    String clientId = System.getenv("CLIENT_ID_SPOTIFY");
-    private final String redirectUri = "http://127.0.0.1:8080/spotify/callback";
+    private final String redirectUri = "http://192.168.15.58:8080/spotify/callback";
     private final String scopes = "user-top-read user-read-private user-read-recently-played";
     private final String baseUrl = "https://accounts.spotify.com/authorize";
-    String secret = System.getenv("SECRET_SPOTIFY");
     private final RestTemplate restTemplate = new RestTemplate();
     private final WebClient webClient;
+    @Value("${spotify.client-id}")
+    String clientId;
+    @Value("${spotify.client-secret}")
+    String secret;
 
     public SpotifyClient(ObjectMapper objectMapper, WebClient webClient) {
         this.objectMapper = objectMapper;
@@ -39,7 +43,7 @@ public class SpotifyClient {
 
     public String construirAutorizacao(String authHeader) {
         String jwt = authHeader.replace("Bearer ", "");
-        return UriComponentsBuilder.fromHttpUrl("https://accounts.spotify.com/authorize").queryParam("client_id", new Object[]{this.clientId}).queryParam("response_type", new Object[]{"code"}).queryParam("redirect_uri", new Object[]{"http://127.0.0.1:8080/spotify/callback"}).queryParam("scope", new Object[]{"user-top-read user-read-private user-read-recently-played"}).queryParam("state", new Object[]{jwt}).build().toUriString();
+        return UriComponentsBuilder.fromHttpUrl("https://accounts.spotify.com/authorize").queryParam("client_id", new Object[]{this.clientId}).queryParam("response_type", new Object[]{"code"}).queryParam("redirect_uri", "http://192.168.15.58:8080/spotify/callback").queryParam("scope", new Object[]{"user-top-read user-read-private user-read-recently-played"}).queryParam("state", new Object[]{jwt}).build().toUriString();
     }
 
     public AccessTokenResponseDto exchangeCodeForTokens(String code) {
@@ -48,7 +52,7 @@ public class SpotifyClient {
             MultiValueMap<String, String> formData = new LinkedMultiValueMap();
             formData.add("grant_type", "authorization_code");
             formData.add("code", code);
-            formData.add("redirect_uri", "http://127.0.0.1:8080/spotify/callback");
+            formData.add("redirect_uri", "http://192.168.15.58:8080/spotify/callback");
             WebClient webClient = WebClient.builder().baseUrl("https://accounts.spotify.com").exchangeStrategies(ExchangeStrategies.builder().codecs((configurer) -> configurer.defaultCodecs().maxInMemorySize(Integer.MAX_VALUE)).build()).build();
             return (AccessTokenResponseDto)((WebClient.RequestBodySpec)((WebClient.RequestBodySpec)webClient.post().uri("/api/token", new Object[0])).header("Authorization", new String[]{"Basic " + basicAuth})).contentType(MediaType.APPLICATION_FORM_URLENCODED).bodyValue(formData).retrieve().bodyToMono(AccessTokenResponseDto.class).block();
         } catch (FalhaAoPegarTokenAcess e) {

@@ -8,6 +8,7 @@ import org.example.emotiwave.application.service.spotifyServices.SpotifyService;
 import org.example.emotiwave.domain.entities.Usuario;
 import org.example.emotiwave.infra.security.TokenService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,5 +58,12 @@ public class SpotifyController {
         System.out.println(code);
         this.spotifyService.exchangeCodeForTokens(code, usuario);
         return ResponseEntity.ok(code);
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<Boolean> verificarConexaoSpotify(@AuthenticationPrincipal Usuario usuario) {
+        boolean conectado = usuario.getSpotifyInfo() != null
+                && usuario.getSpotifyInfo().getAccessToken() != null;
+        return ResponseEntity.ok(conectado);
     }
 }
