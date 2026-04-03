@@ -44,7 +44,7 @@ public interface AnaliseMusicaRepository extends JpaRepository<AnaliseMusica, Lo
     FROM analise_musica a
     WHERE a.usuario_id = :userId
       AND (:inicio IS NULL OR a.analisado_em >= :inicio)
-      AND (:fim IS NULL OR a.analisado_em <= :fim)
+              AND (:fim IS NULL OR a.analisado_em <= :fim)
     """, nativeQuery = true)
     EstatisticaResponse gerarEstatisticas(
             @Param("userId") Long userId,

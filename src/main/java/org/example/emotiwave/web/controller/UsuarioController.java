@@ -75,11 +75,12 @@ public class UsuarioController {
         return ResponseEntity.created(uri).body(cadastroNovoUsuario);
     }
 
-    @GetMapping("/usuarios/estatisticas")
+    @GetMapping("/estatisticas")
     public ResponseEntity<EstatisticaResponse> getEstatisticas(
             @AuthenticationPrincipal Usuario usuario,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim
+    ) {
         EstatisticaResponse response = estatisticaService.gerarEstatistica(usuario, inicio, fim);
         return ResponseEntity.ok(response);
     }
