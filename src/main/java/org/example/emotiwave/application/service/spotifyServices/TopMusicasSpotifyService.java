@@ -2,18 +2,10 @@ package org.example.emotiwave.application.service.spotifyServices;
 
 
 import jakarta.transaction.Transactional;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import org.example.emotiwave.application.dto.in.GeneroMusicaSpotifyDto;
 import org.example.emotiwave.application.dto.in.MusicaSimplesDto;
 import org.example.emotiwave.application.dto.in.MusicasUsuarioSpotifyDto;
 import org.example.emotiwave.application.mapper.MusicaMapper;
 import org.example.emotiwave.application.service.GeniusLyricsService;
-import org.example.emotiwave.application.service.HuggingFaceZeroShotService;
-import org.example.emotiwave.domain.entities.AnaliseMusica;
 import org.example.emotiwave.domain.entities.FonteMusica;
 import org.example.emotiwave.domain.entities.Musica;
 import org.example.emotiwave.domain.entities.Usuario;
@@ -24,6 +16,10 @@ import org.example.emotiwave.infra.repository.UsuarioMusicaRepository;
 import org.example.emotiwave.infra.repository.UsuarioRepository;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TopMusicasSpotifyService {
@@ -50,7 +46,7 @@ public class TopMusicasSpotifyService {
         MusicasUsuarioSpotifyDto dtoSpotify = this.spotifyService.enviarRequisicaoSpotifyUtilsV2(usuario, this.SPOTIFY_TOP_TRACKS_URL, new ParameterizedTypeReference<MusicasUsuarioSpotifyDto>() {
         }, (Long)null);
         List<MusicaSimplesDto> topMusicas = this.converterTopMusicasParaDto(dtoSpotify, usuario);
-        this.converterTopMusicasParaEntidade(topMusicas, usuario);
+        // this.converterTopMusicasParaEntidade(topMusicas, usuario);
         return topMusicas;
     }
 
