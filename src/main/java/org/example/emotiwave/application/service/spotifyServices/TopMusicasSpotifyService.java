@@ -27,7 +27,7 @@ public class TopMusicasSpotifyService {
     private final MusicaMapper musicaMapper;
     private final SpotifyService spotifyService;
     private final GeniusLyricsService geniusLyricsService;
-    String SPOTIFY_TOP_TRACKS_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=3";
+    String SPOTIFY_TOP_TRACKS_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10";
     String SPOTIFY_ARTIST_URL = "https://api.spotify.com/v1/artists";
     private UsuarioMusicaRepository usuarioMusicaRepository;
     Instant now = Instant.now();
@@ -41,12 +41,22 @@ public class TopMusicasSpotifyService {
         this.usuarioMusicaRepository = usuarioMusicaRepository;
     }
 
-    public List<MusicaSimplesDto> buscarTopMusicasSpotify(Usuario usuario) {
+    public List<MusicaSimplesDto> buscarTopMusicasSpotify(Usuario usuario, int limit) {
         this.spotifyService.verificarExpiracaoToken(usuario);
-        MusicasUsuarioSpotifyDto dtoSpotify = this.spotifyService.enviarRequisicaoSpotifyUtilsV2(usuario, this.SPOTIFY_TOP_TRACKS_URL, new ParameterizedTypeReference<MusicasUsuarioSpotifyDto>() {
-        }, (Long)null);
+
+        int limitFinal = Math.max(1, Math.min(limit, 10));
+
+        String spotifyTopTracksUrl =
+                "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=" + limitFinal;
+
+        MusicasUsuarioSpotifyDto dtoSpotify = this.spotifyService.enviarRequisicaoSpotifyUtilsV2(
+                usuario,
+                spotifyTopTracksUrl,
+                new ParameterizedTypeReference<MusicasUsuarioSpotifyDto>() {},
+                null
+        );
+
         List<MusicaSimplesDto> topMusicas = this.converterTopMusicasParaDto(dtoSpotify, usuario);
-        // this.converterTopMusicasParaEntidade(topMusicas, usuario);
         return topMusicas;
     }
 
