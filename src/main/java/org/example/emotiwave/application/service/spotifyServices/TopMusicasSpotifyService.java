@@ -32,7 +32,7 @@ public class TopMusicasSpotifyService {
     private final SpotifyService spotifyService;
     private final GeniusLyricsService geniusLyricsService;
     String SPOTIFY_TOP_TRACKS_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=3";
-    String SPOTIFY_ARTIST_URL = "https://api.spotify.com/v1/artists/";
+    String SPOTIFY_ARTIST_URL = "https://api.spotify.com/v1/artists";
     private UsuarioMusicaRepository usuarioMusicaRepository;
     Instant now = Instant.now();
 
@@ -60,8 +60,14 @@ public class TopMusicasSpotifyService {
             for(MusicasUsuarioSpotifyDto.Track track : dtoSpotify.getItems()) {
                 if (track.getArtists() != null && !track.getArtists().isEmpty()) {
                     String artistaId = ((MusicasUsuarioSpotifyDto.Track.Artist)track.getArtists().get(0)).getId();
-                    GeneroMusicaSpotifyDto genero = this.spotifyService.getGeneros(track.getArtistsIds(), usuario, new ParameterizedTypeReference<GeneroMusicaSpotifyDto>() {
-                    }, (Long)null, this.SPOTIFY_ARTIST_URL);
+                    GeneroMusicaSpotifyDto genero = this.spotifyService.getGeneros(
+                            artistaId,
+                            usuario,
+                            new ParameterizedTypeReference<GeneroMusicaSpotifyDto>() {
+                            },
+                            null,
+                            this.SPOTIFY_ARTIST_URL
+                    );
                     String generoString = genero != null && !genero.genres().isEmpty() ? (String)genero.genres().get(0) : "Desconhecido";
                     topMusicas.add(new MusicaSimplesDto(track.getName(), track.getArtistsNames(), track.getId(), artistaId, generoString));
                 }
