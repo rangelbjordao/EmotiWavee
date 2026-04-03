@@ -55,21 +55,24 @@ public class TopMusicasSpotifyService {
     }
 
     private List<MusicaSimplesDto> converterTopMusicasParaDto(MusicasUsuarioSpotifyDto dtoSpotify, Usuario usuario) {
-        List<MusicaSimplesDto> topMusicas = new ArrayList();
+        List<MusicaSimplesDto> topMusicas = new ArrayList<>();
+
         if (dtoSpotify != null && dtoSpotify.getItems() != null) {
-            for(MusicasUsuarioSpotifyDto.Track track : dtoSpotify.getItems()) {
+            for (MusicasUsuarioSpotifyDto.Track track : dtoSpotify.getItems()) {
                 if (track.getArtists() != null && !track.getArtists().isEmpty()) {
-                    String artistaId = ((MusicasUsuarioSpotifyDto.Track.Artist)track.getArtists().get(0)).getId();
-                    GeneroMusicaSpotifyDto genero = this.spotifyService.getGeneros(
-                            artistaId,
-                            usuario,
-                            new ParameterizedTypeReference<GeneroMusicaSpotifyDto>() {
-                            },
-                            null,
-                            this.SPOTIFY_ARTIST_URL
+                    String artistaId = track.getArtists().get(0).getId();
+
+                    String generoString = "Desconhecido";
+
+                    topMusicas.add(
+                            new MusicaSimplesDto(
+                                    track.getName(),
+                                    track.getArtistsNames(),
+                                    track.getId(),
+                                    artistaId,
+                                    generoString
+                            )
                     );
-                    String generoString = genero != null && !genero.genres().isEmpty() ? (String)genero.genres().get(0) : "Desconhecido";
-                    topMusicas.add(new MusicaSimplesDto(track.getName(), track.getArtistsNames(), track.getId(), artistaId, generoString));
                 }
             }
         }
