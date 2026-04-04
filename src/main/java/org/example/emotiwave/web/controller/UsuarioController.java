@@ -82,6 +82,17 @@ public class UsuarioController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim
     ) {
         EstatisticaResponse response = estatisticaService.gerarEstatistica(usuario, inicio, fim);
+
+        if (response == null) {
+            response = new EstatisticaResponse(
+                    null,
+                    0.0,
+                    null,
+                    null,
+                    0
+            );
+        }
+
         return ResponseEntity.ok(response);
     }
 
