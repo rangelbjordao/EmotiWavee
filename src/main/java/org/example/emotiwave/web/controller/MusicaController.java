@@ -32,9 +32,9 @@ public class MusicaController {
     }
 
     @PatchMapping("/analisar")
-    public ResponseEntity analise( Musica musica, @AuthenticationPrincipal Usuario usuario) {
-            analiseMusicaService.analisarMusicas(usuario);
-            return ResponseEntity.noContent().build();
+    public ResponseEntity analise(@AuthenticationPrincipal Usuario usuario) {
+        analiseMusicaService.analisarMusicas(usuario);
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(
