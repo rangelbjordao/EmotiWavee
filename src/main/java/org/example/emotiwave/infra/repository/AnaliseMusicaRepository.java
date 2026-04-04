@@ -59,6 +59,8 @@ JOIN T_USUARIO_MUSICA um ON um.musica_id = a.musica_id
 WHERE um.usuario_id = :userId
   AND (:inicio IS NULL OR a.analisado_em >= :inicio)
   AND (:fim IS NULL OR a.analisado_em <= :fim)
+
+GROUP BY um.usuario_id
 """, nativeQuery = true)
     EstatisticaResponse gerarEstatisticas(
             @Param("userId") Long userId,
