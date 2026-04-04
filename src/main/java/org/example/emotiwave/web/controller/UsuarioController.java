@@ -86,8 +86,6 @@ public class UsuarioController {
         if (response == null) {
             response = new EstatisticaResponse(
                     null,
-                    0.0,
-                    null,
                     null,
                     0
             );
