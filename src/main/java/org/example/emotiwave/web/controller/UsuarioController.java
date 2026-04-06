@@ -103,46 +103,4 @@ public class UsuarioController {
     public ResponseEntity getHumorSemanal(@AuthenticationPrincipal Usuario usuario) {
         return ResponseEntity.ok().build();
     }
-
-//    @Operation(
-//            summary = "Listar usuários",
-//            description = "Retorna uma lista paginada de usuários do sistema."
-//    )
-//    @ApiResponse(
-//            responseCode = "200",
-//            description = "Lista de usuários retornada com sucesso"
-//    )
-//    @GetMapping
-//    public ResponseEntity<Page<UsuarioDetailResponseDto>> listar(@PageableDefault(size = 10,sort = {"username"}) Pageable paginacao) {
-//        Page<UsuarioDetailResponseDto> page = this.usuarioService.listar(paginacao);
-//        return ResponseEntity.ok(page);
-//    }
-//
-//    @Operation(
-//            summary = "Excluir usuário",
-//            description = "Exclui um usuário existente pelo ID e retorna os dados do usuário excluído."
-//    )
-//    @ApiResponse(
-//            responseCode = "200",
-//            description = "Usuário excluído com sucesso"
-//    )
-//    @DeleteMapping({"/{id}"})
-//    public ResponseEntity<UsuarioDetailResponseDto> excluir(@PathVariable Long id) {
-//        UsuarioDetailResponseDto usuarioDeletado = this.usuarioService.excluir(id);
-//        return ResponseEntity.ok(usuarioDeletado);
-//    }
-//
-//    @Operation(
-//            summary = "Detalhar usuário",
-//            description = "Retorna os detalhes de um usuário pelo ID."
-//    )
-//    @ApiResponse(
-//            responseCode = "200",
-//            description = "Detalhes do usuário retornados com sucesso"
-//    )
-//    @GetMapping({"/{id}"})
-//    public ResponseEntity<UsuarioDetailResponseDto> detalhar(@PathVariable Long id) {
-//        UsuarioDetailResponseDto dto = this.usuarioService.buscarPorId(id);
-//        return ResponseEntity.ok(dto);
-//    }
 }
