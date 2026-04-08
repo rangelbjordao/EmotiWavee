@@ -23,8 +23,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Generated;
+import lombok.Getter;
 import org.hibernate.proxy.HibernateProxy;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -39,6 +39,7 @@ public class Usuario implements UserDetails {
     )
     private Long id;
     private String username;
+    @Getter
     private String password;
     private String email;
     @ElementCollection(
@@ -91,16 +92,16 @@ public class Usuario implements UserDetails {
         return this instanceof HibernateProxy ? ((HibernateProxy)this).getHibernateLazyInitializer().getPersistentClass().hashCode() : this.getClass().hashCode();
     }
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return (Collection)this.roles.stream().map((role) -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
-    }
-
-    public String getPassword() {
-        return this.password;
+    public Collection getAuthorities() {
+        return this.roles.stream().map((role) -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
     }
 
     public String getUsername() {
         return this.email;
+    }
+
+    public String getNomeUsuario() {
+        return this.username;
     }
 
     @Generated

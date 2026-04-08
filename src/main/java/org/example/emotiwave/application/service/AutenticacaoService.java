@@ -55,7 +55,7 @@ public class AutenticacaoService {
             Usuario usuario = usuarioRepository.findByEmail(dados.email())
                     .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-            return new DadosTokenJwtResponseDto(tokenJwt, usuario.getUsername());
+            return new DadosTokenJwtResponseDto(tokenJwt, usuario.getNomeUsuario());
         } catch (AuthenticationException e) {
             throw new AutenticacaoFalhou("Usuário ou senha inválidos");
         }
