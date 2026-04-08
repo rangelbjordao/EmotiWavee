@@ -56,8 +56,8 @@ public class AutenticacaoController {
     @ApiResponses
     @PostMapping
     public ResponseEntity efetuarAutenticacao(@RequestBody @Valid DadosAuthRequestDto dados) {
-        String tokenJWT = this.autenticacaoService.autenticar(dados);
-        return ResponseEntity.ok(new DadosTokenJwtResponseDto(tokenJWT));
+        DadosTokenJwtResponseDto resposta = this.autenticacaoService.autenticar(dados);
+        return ResponseEntity.ok(resposta);
     }
 
     @PostMapping("/criar")
