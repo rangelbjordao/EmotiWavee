@@ -1,11 +1,11 @@
 package org.example.emotiwave.web.controller;
 
 
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+
 import java.net.URI;
 import java.time.LocalDate;
 
@@ -102,5 +102,10 @@ public class UsuarioController {
     @GetMapping({"/humor-semanal"})
     public ResponseEntity getHumorSemanal(@AuthenticationPrincipal Usuario usuario) {
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UsuarioDetailResponseDto> me(@AuthenticationPrincipal Usuario usuario) {
+        return ResponseEntity.ok(usuarioService.buscarPorId(usuario.getId()));
     }
 }
