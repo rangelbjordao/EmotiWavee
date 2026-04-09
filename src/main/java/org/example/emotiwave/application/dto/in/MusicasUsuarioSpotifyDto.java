@@ -1,6 +1,5 @@
 package org.example.emotiwave.application.dto.in;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Generated;
@@ -65,13 +64,25 @@ public class MusicasUsuarioSpotifyDto {
         private List<Artist> artists;
         private String id;
         private String genero;
+        private Album album;
 
         public String getArtistsNames() {
-            return this.artists != null && !this.artists.isEmpty() ? this.artists.stream().map(Artist::getName).collect(Collectors.joining(", ")) : "Desconhecido";
+            return this.artists != null && !this.artists.isEmpty()
+                    ? this.artists.stream().map(Artist::getName).collect(Collectors.joining(", "))
+                    : "Desconhecido";
         }
 
         public String getArtistsIds() {
-            return this.artists != null && !this.artists.isEmpty() ? this.artists.stream().map(Artist::getId).collect(Collectors.joining(",")) : "";
+            return this.artists != null && !this.artists.isEmpty()
+                    ? this.artists.stream().map(Artist::getId).collect(Collectors.joining(","))
+                    : "";
+        }
+
+        public String getImagemUrl() {
+            if (this.album != null && this.album.getImages() != null && !this.album.getImages().isEmpty()) {
+                return this.album.getImages().get(0).getUrl();
+            }
+            return null;
         }
 
         @Generated
@@ -99,6 +110,11 @@ public class MusicasUsuarioSpotifyDto {
         }
 
         @Generated
+        public Album getAlbum() {
+            return this.album;
+        }
+
+        @Generated
         public void setName(final String name) {
             this.name = name;
         }
@@ -116,6 +132,11 @@ public class MusicasUsuarioSpotifyDto {
         @Generated
         public void setGenero(final String genero) {
             this.genero = genero;
+        }
+
+        @Generated
+        public void setAlbum(final Album album) {
+            this.album = album;
         }
 
         @Generated
@@ -161,8 +182,18 @@ public class MusicasUsuarioSpotifyDto {
                     Object this$genero = this.getGenero();
                     Object other$genero = other.getGenero();
                     if (this$genero == null) {
-                        return other$genero == null;
-                    } else return this$genero.equals(other$genero);
+                        if (other$genero != null) {
+                            return false;
+                        }
+                    } else if (!this$genero.equals(other$genero)) {
+                        return false;
+                    }
+
+                    Object this$album = this.getAlbum();
+                    Object other$album = other.getAlbum();
+                    if (this$album == null) {
+                        return other$album == null;
+                    } else return this$album.equals(other$album);
                 }
             }
         }
@@ -184,13 +215,18 @@ public class MusicasUsuarioSpotifyDto {
             result = result * 59 + ($id == null ? 43 : $id.hashCode());
             Object $genero = this.getGenero();
             result = result * 59 + ($genero == null ? 43 : $genero.hashCode());
+            Object $album = this.getAlbum();
+            result = result * 59 + ($album == null ? 43 : $album.hashCode());
             return result;
         }
 
         @Generated
         public String toString() {
-            String var10000 = this.getName();
-            return "MusicasUsuarioSpotifyDto.Track(name=" + var10000 + ", artists=" + this.getArtists() + ", id=" + this.getId() + ", genero=" + this.getGenero() + ")";
+            return "MusicasUsuarioSpotifyDto.Track(name=" + this.getName()
+                    + ", artists=" + this.getArtists()
+                    + ", id=" + this.getId()
+                    + ", genero=" + this.getGenero()
+                    + ", album=" + this.getAlbum() + ")";
         }
 
         public static class Artist {
@@ -268,8 +304,72 @@ public class MusicasUsuarioSpotifyDto {
 
             @Generated
             public String toString() {
-                String var10000 = this.getName();
-                return "MusicasUsuarioSpotifyDto.Track.Artist(name=" + var10000 + ", id=" + this.getId() + ")";
+                return "MusicasUsuarioSpotifyDto.Track.Artist(name=" + this.getName()
+                        + ", id=" + this.getId() + ")";
+            }
+        }
+
+        public static class Album {
+            private List<Image> images;
+
+            public Album() {
+            }
+
+            public List<Image> getImages() {
+                return images;
+            }
+
+            public void setImages(List<Image> images) {
+                this.images = images;
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (!(o instanceof Album album)) return false;
+                return images != null ? images.equals(album.images) : album.images == null;
+            }
+
+            @Override
+            public int hashCode() {
+                return images != null ? images.hashCode() : 0;
+            }
+
+            @Override
+            public String toString() {
+                return "Album(images=" + images + ")";
+            }
+        }
+
+        public static class Image {
+            private String url;
+
+            public Image() {
+            }
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (!(o instanceof Image image)) return false;
+                return url != null ? url.equals(image.url) : image.url == null;
+            }
+
+            @Override
+            public int hashCode() {
+                return url != null ? url.hashCode() : 0;
+            }
+
+            @Override
+            public String toString() {
+                return "Image(url=" + url + ")";
             }
         }
     }
