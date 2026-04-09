@@ -4,17 +4,21 @@ import org.example.emotiwave.application.dto.in.RegistroHumorRequestDto;
 import org.example.emotiwave.application.dto.out.RegistroHumorResponseDto;
 import org.example.emotiwave.domain.entities.RegistroHumor;
 import org.example.emotiwave.domain.entities.Usuario;
+import org.example.emotiwave.infra.client.ApexClient;
 import org.example.emotiwave.infra.repository.RegistroHumorRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class RegistroHumorService {
 
     private final RegistroHumorRepository repository;
+    private final ApexClient apexClient;
 
-    public RegistroHumorService(RegistroHumorRepository repository) {
+    public RegistroHumorService(RegistroHumorRepository repository, ApexClient apexClient) {
         this.repository = repository;
+        this.apexClient = apexClient;
     }
 
     public RegistroHumorResponseDto criar(RegistroHumorRequestDto dto, Usuario usuario) {
@@ -24,6 +28,8 @@ public class RegistroHumorService {
         registro.setAtividades(dto.atividades());
         registro.setDetalhes(dto.detalhes());
         RegistroHumor salvo = repository.save(registro);
+        // Envia para o APEX
+        apexClient.enviarRegistro(usuario.getId(), dto.humor(), dto.detalhes());
         return toDto(salvo);
     }
 
