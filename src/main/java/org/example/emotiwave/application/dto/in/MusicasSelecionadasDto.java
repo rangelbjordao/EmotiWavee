@@ -29,24 +29,17 @@ public class MusicasSelecionadasDto {
     public boolean equals(final Object o) {
         if (o == this) {
             return true;
-        } else if (!(o instanceof MusicasSelecionadasDto)) {
+        } else if (!(o instanceof MusicasSelecionadasDto other)) {
             return false;
         } else {
-            MusicasSelecionadasDto other = (MusicasSelecionadasDto)o;
             if (!other.canEqual(this)) {
                 return false;
             } else {
                 Object this$items = this.getItems();
                 Object other$items = other.getItems();
                 if (this$items == null) {
-                    if (other$items != null) {
-                        return false;
-                    }
-                } else if (!this$items.equals(other$items)) {
-                    return false;
-                }
-
-                return true;
+                    return other$items == null;
+                } else return this$items.equals(other$items);
             }
         }
     }
@@ -67,7 +60,7 @@ public class MusicasSelecionadasDto {
 
     @Generated
     public String toString() {
-        return "MusicasSelecionadasDto(items=" + String.valueOf(this.getItems()) + ")";
+        return "MusicasSelecionadasDto(items=" + this.getItems() + ")";
     }
 
     public static class Item {
@@ -113,10 +106,9 @@ public class MusicasSelecionadasDto {
         public boolean equals(final Object o) {
             if (o == this) {
                 return true;
-            } else if (!(o instanceof Item)) {
+            } else if (!(o instanceof Item other)) {
                 return false;
             } else {
-                Item other = (Item)o;
                 if (!other.canEqual(this)) {
                     return false;
                 } else if (this.isOuvidaHoje() != other.isOuvidaHoje()) {
@@ -127,14 +119,8 @@ public class MusicasSelecionadasDto {
                     Object this$spotifyTrackId = this.getSpotifyTrackId();
                     Object other$spotifyTrackId = other.getSpotifyTrackId();
                     if (this$spotifyTrackId == null) {
-                        if (other$spotifyTrackId != null) {
-                            return false;
-                        }
-                    } else if (!this$spotifyTrackId.equals(other$spotifyTrackId)) {
-                        return false;
-                    }
-
-                    return true;
+                        return other$spotifyTrackId == null;
+                    } else return this$spotifyTrackId.equals(other$spotifyTrackId);
                 }
             }
         }

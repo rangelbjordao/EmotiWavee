@@ -71,7 +71,7 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<UsuarioDetailResponseDto> criar(@RequestBody @Valid UsuarioCreateRequestDto dto, UriComponentsBuilder uriBuilder) {
         UsuarioDetailResponseDto cadastroNovoUsuario = usuarioService.cadastrar(dto);
-        URI uri = uriBuilder.path("/usuario/{id}").buildAndExpand(new Object[]{cadastroNovoUsuario.id()}).toUri();
+        URI uri = uriBuilder.path("/usuario/{id}").buildAndExpand(cadastroNovoUsuario.id()).toUri();
         return ResponseEntity.created(uri).body(cadastroNovoUsuario);
     }
 

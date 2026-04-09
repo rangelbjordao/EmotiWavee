@@ -12,7 +12,7 @@ public record MusicasMaisOuvidasResponseDto(List<MusicaResponseDto> musicas) {
         return this.musicas;
     }
 
-    public static record MusicaResponseDto(Long id, String artista, String titulo, Integer qtdOuvintes) {
+    public record MusicaResponseDto(Long id, String artista, String titulo, Integer qtdOuvintes) {
         public MusicaResponseDto(Long id, String artista, String titulo, Integer qtdOuvintes) {
             this.id = id;
             this.artista = artista;

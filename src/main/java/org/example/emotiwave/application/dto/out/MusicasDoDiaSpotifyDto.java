@@ -25,24 +25,17 @@ public class MusicasDoDiaSpotifyDto {
     public boolean equals(final Object o) {
         if (o == this) {
             return true;
-        } else if (!(o instanceof MusicasDoDiaSpotifyDto)) {
+        } else if (!(o instanceof MusicasDoDiaSpotifyDto other)) {
             return false;
         } else {
-            MusicasDoDiaSpotifyDto other = (MusicasDoDiaSpotifyDto)o;
             if (!other.canEqual(this)) {
                 return false;
             } else {
                 Object this$items = this.getItems();
                 Object other$items = other.getItems();
                 if (this$items == null) {
-                    if (other$items != null) {
-                        return false;
-                    }
-                } else if (!this$items.equals(other$items)) {
-                    return false;
-                }
-
-                return true;
+                    return other$items == null;
+                } else return this$items.equals(other$items);
             }
         }
     }
@@ -63,7 +56,7 @@ public class MusicasDoDiaSpotifyDto {
 
     @Generated
     public String toString() {
-        return "MusicasDoDiaSpotifyDto(items=" + String.valueOf(this.getItems()) + ")";
+        return "MusicasDoDiaSpotifyDto(items=" + this.getItems() + ")";
     }
 
     public static class Item {
@@ -98,10 +91,9 @@ public class MusicasDoDiaSpotifyDto {
         public boolean equals(final Object o) {
             if (o == this) {
                 return true;
-            } else if (!(o instanceof Item)) {
+            } else if (!(o instanceof Item other)) {
                 return false;
             } else {
-                Item other = (Item)o;
                 if (!other.canEqual(this)) {
                     return false;
                 } else {
@@ -118,14 +110,8 @@ public class MusicasDoDiaSpotifyDto {
                     Object this$played_at = this.getPlayed_at();
                     Object other$played_at = other.getPlayed_at();
                     if (this$played_at == null) {
-                        if (other$played_at != null) {
-                            return false;
-                        }
-                    } else if (!this$played_at.equals(other$played_at)) {
-                        return false;
-                    }
-
-                    return true;
+                        return other$played_at == null;
+                    } else return this$played_at.equals(other$played_at);
                 }
             }
         }
@@ -196,10 +182,9 @@ public class MusicasDoDiaSpotifyDto {
         public boolean equals(final Object o) {
             if (o == this) {
                 return true;
-            } else if (!(o instanceof Track)) {
+            } else if (!(o instanceof Track other)) {
                 return false;
             } else {
-                Track other = (Track)o;
                 if (!other.canEqual(this)) {
                     return false;
                 } else {
@@ -226,14 +211,8 @@ public class MusicasDoDiaSpotifyDto {
                     Object this$artists = this.getArtists();
                     Object other$artists = other.getArtists();
                     if (this$artists == null) {
-                        if (other$artists != null) {
-                            return false;
-                        }
-                    } else if (!this$artists.equals(other$artists)) {
-                        return false;
-                    }
-
-                    return true;
+                        return other$artists == null;
+                    } else return this$artists.equals(other$artists);
                 }
             }
         }
@@ -259,7 +238,7 @@ public class MusicasDoDiaSpotifyDto {
         @Generated
         public String toString() {
             String var10000 = this.getId();
-            return "MusicasDoDiaSpotifyDto.Track(id=" + var10000 + ", name=" + this.getName() + ", artists=" + String.valueOf(this.getArtists()) + ")";
+            return "MusicasDoDiaSpotifyDto.Track(id=" + var10000 + ", name=" + this.getName() + ", artists=" + this.getArtists() + ")";
         }
     }
 
@@ -295,10 +274,9 @@ public class MusicasDoDiaSpotifyDto {
         public boolean equals(final Object o) {
             if (o == this) {
                 return true;
-            } else if (!(o instanceof Artist)) {
+            } else if (!(o instanceof Artist other)) {
                 return false;
             } else {
-                Artist other = (Artist)o;
                 if (!other.canEqual(this)) {
                     return false;
                 } else {
@@ -315,14 +293,8 @@ public class MusicasDoDiaSpotifyDto {
                     Object this$id = this.getId();
                     Object other$id = other.getId();
                     if (this$id == null) {
-                        if (other$id != null) {
-                            return false;
-                        }
-                    } else if (!this$id.equals(other$id)) {
-                        return false;
-                    }
-
-                    return true;
+                        return other$id == null;
+                    } else return this$id.equals(other$id);
                 }
             }
         }

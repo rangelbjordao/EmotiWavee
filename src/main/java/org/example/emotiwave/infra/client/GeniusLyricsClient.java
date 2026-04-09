@@ -11,6 +11,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.nio.charset.StandardCharsets;
+
 import org.example.emotiwave.domain.exceptions.LetraMusicaNaoEncontradaGenius;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,11 +33,11 @@ public class GeniusLyricsClient {
 
     public String fetchLyricsUrl(String artist, String title) throws IOException, InterruptedException {
         String query = title + " " + artist;
-        String url = "https://api.genius.com/search?q=" + URLEncoder.encode(query, "UTF-8");
+        String url = "https://api.genius.com/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8);
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).header("Authorization", "Bearer " + this.secret).GET().build();
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-        JsonObject json = JsonParser.parseString((String)response.body()).getAsJsonObject();
+        JsonObject json = JsonParser.parseString(response.body()).getAsJsonObject();
         JsonArray hits = json.getAsJsonObject("response").getAsJsonArray("hits");
         if (hits.size() == 0) {
             throw new LetraMusicaNaoEncontradaGenius("Letra musica nao encontrada");

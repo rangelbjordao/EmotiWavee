@@ -5,6 +5,6 @@ public enum FonteMusica {
     SPOTIFY,
     MANUAL;
 
-    private FonteMusica() {
+    FonteMusica() {
     }
 }

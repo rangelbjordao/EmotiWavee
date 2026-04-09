@@ -26,7 +26,7 @@ public class HuggingFaceZeroShotClient {
 
     public HuggingFaceZeroShotClient(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
-        this.webClient = WebClient.builder().baseUrl("https://router.huggingface.co/hf-inference").defaultHeader("Authorization", new String[]{"Bearer " + this.huggingKey}).defaultHeader("Content-Type", new String[]{"application/json"}).exchangeStrategies(ExchangeStrategies.builder().codecs((configurer) -> configurer.defaultCodecs().maxInMemorySize(Integer.MAX_VALUE)).build()).build();
+        this.webClient = WebClient.builder().baseUrl("https://router.huggingface.co/hf-inference").defaultHeader("Authorization", "Bearer " + this.huggingKey).defaultHeader("Content-Type", "application/json").exchangeStrategies(ExchangeStrategies.builder().codecs((configurer) -> configurer.defaultCodecs().maxInMemorySize(Integer.MAX_VALUE)).build()).build();
     }
 
     public ArrayList<Serializable> obterAnalise(Musica musica) throws IOException {
@@ -54,7 +54,7 @@ public class HuggingFaceZeroShotClient {
 
     public String enviarRequisicao(Musica musica) throws IOException {
         String bodyString = this.montarJson(musica);
-        return (String)((WebClient.RequestBodySpec)this.webClient.post().uri("/models/facebook/bart-large-mnli", new Object[0])).bodyValue(bodyString).retrieve().bodyToMono(String.class).block();
+        return this.webClient.post().uri("/models/facebook/bart-large-mnli", new Object[0]).bodyValue(bodyString).retrieve().bodyToMono(String.class).block();
     }
 
     private String montarJson(Musica musica) throws IOException {

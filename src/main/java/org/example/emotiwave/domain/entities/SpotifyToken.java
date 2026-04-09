@@ -109,7 +109,7 @@ public class SpotifyToken {
     @Generated
     public String toString() {
         Long var10000 = this.getId();
-        return "SpotifyToken(id=" + var10000 + ", accessToken=" + this.getAccessToken() + ", refreshToken=" + this.getRefreshToken() + ", expiresIn=" + String.valueOf(this.getExpiresIn()) + ")";
+        return "SpotifyToken(id=" + var10000 + ", accessToken=" + this.getAccessToken() + ", refreshToken=" + this.getRefreshToken() + ", expiresIn=" + this.getExpiresIn() + ")";
     }
 
     @Generated

@@ -124,7 +124,7 @@ public class UsuarioMusica {
     @Generated
     public String toString() {
         Long var10000 = this.getId();
-        return "UsuarioMusica(id=" + var10000 + ", selecionada=" + String.valueOf(this.getSelecionada()) + ", ouvidaEm=" + String.valueOf(this.getOuvidaEm()) + ", fonte=" + String.valueOf(this.getFonte()) + ")";
+        return "UsuarioMusica(id=" + var10000 + ", selecionada=" + this.getSelecionada() + ", ouvidaEm=" + this.getOuvidaEm() + ", fonte=" + this.getFonte() + ")";
     }
 
     @Generated

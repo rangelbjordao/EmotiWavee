@@ -197,7 +197,7 @@ public class Usuario implements UserDetails {
     @Generated
     public String toString() {
         Long var10000 = this.getId();
-        return "Usuario(id=" + var10000 + ", username=" + this.getUsername() + ", password=" + this.getPassword() + ", email=" + this.getEmail() + ", roles=" + String.valueOf(this.getRoles()) + ", deleted=" + this.getDeleted() + ", criadoEm=" + String.valueOf(this.getCriadoEm()) + ", usuarioMusica=" + String.valueOf(this.getUsuarioMusica()) + ")";
+        return "Usuario(id=" + var10000 + ", username=" + this.getUsername() + ", password=" + this.getPassword() + ", email=" + this.getEmail() + ", roles=" + this.getRoles() + ", deleted=" + this.getDeleted() + ", criadoEm=" + this.getCriadoEm() + ", usuarioMusica=" + this.getUsuarioMusica() + ")";
     }
 
     @Generated

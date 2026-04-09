@@ -61,10 +61,9 @@ public class MusicaSimplesDto {
     public boolean equals(final Object o) {
         if (o == this) {
             return true;
-        } else if (!(o instanceof MusicaSimplesDto)) {
+        } else if (!(o instanceof MusicaSimplesDto other)) {
             return false;
         } else {
-            MusicaSimplesDto other = (MusicaSimplesDto)o;
             if (!other.canEqual(this)) {
                 return false;
             } else {
@@ -111,14 +110,8 @@ public class MusicaSimplesDto {
                 Object this$genero = this.getGenero();
                 Object other$genero = other.getGenero();
                 if (this$genero == null) {
-                    if (other$genero != null) {
-                        return false;
-                    }
-                } else if (!this$genero.equals(other$genero)) {
-                    return false;
-                }
-
-                return true;
+                    return other$genero == null;
+                } else return this$genero.equals(other$genero);
             }
         }
     }

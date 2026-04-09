@@ -26,24 +26,17 @@ public class MusicasUsuarioSpotifyDto {
     public boolean equals(final Object o) {
         if (o == this) {
             return true;
-        } else if (!(o instanceof MusicasUsuarioSpotifyDto)) {
+        } else if (!(o instanceof MusicasUsuarioSpotifyDto other)) {
             return false;
         } else {
-            MusicasUsuarioSpotifyDto other = (MusicasUsuarioSpotifyDto)o;
             if (!other.canEqual(this)) {
                 return false;
             } else {
                 Object this$items = this.getItems();
                 Object other$items = other.getItems();
                 if (this$items == null) {
-                    if (other$items != null) {
-                        return false;
-                    }
-                } else if (!this$items.equals(other$items)) {
-                    return false;
-                }
-
-                return true;
+                    return other$items == null;
+                } else return this$items.equals(other$items);
             }
         }
     }
@@ -64,7 +57,7 @@ public class MusicasUsuarioSpotifyDto {
 
     @Generated
     public String toString() {
-        return "MusicasUsuarioSpotifyDto(items=" + String.valueOf(this.getItems()) + ")";
+        return "MusicasUsuarioSpotifyDto(items=" + this.getItems() + ")";
     }
 
     public static class Track {
@@ -74,11 +67,11 @@ public class MusicasUsuarioSpotifyDto {
         private String genero;
 
         public String getArtistsNames() {
-            return this.artists != null && !this.artists.isEmpty() ? (String)this.artists.stream().map(Artist::getName).collect(Collectors.joining(", ")) : "Desconhecido";
+            return this.artists != null && !this.artists.isEmpty() ? this.artists.stream().map(Artist::getName).collect(Collectors.joining(", ")) : "Desconhecido";
         }
 
         public String getArtistsIds() {
-            return this.artists != null && !this.artists.isEmpty() ? (String)this.artists.stream().map(Artist::getId).collect(Collectors.joining(",")) : "";
+            return this.artists != null && !this.artists.isEmpty() ? this.artists.stream().map(Artist::getId).collect(Collectors.joining(",")) : "";
         }
 
         @Generated
@@ -129,10 +122,9 @@ public class MusicasUsuarioSpotifyDto {
         public boolean equals(final Object o) {
             if (o == this) {
                 return true;
-            } else if (!(o instanceof Track)) {
+            } else if (!(o instanceof Track other)) {
                 return false;
             } else {
-                Track other = (Track)o;
                 if (!other.canEqual(this)) {
                     return false;
                 } else {
@@ -169,14 +161,8 @@ public class MusicasUsuarioSpotifyDto {
                     Object this$genero = this.getGenero();
                     Object other$genero = other.getGenero();
                     if (this$genero == null) {
-                        if (other$genero != null) {
-                            return false;
-                        }
-                    } else if (!this$genero.equals(other$genero)) {
-                        return false;
-                    }
-
-                    return true;
+                        return other$genero == null;
+                    } else return this$genero.equals(other$genero);
                 }
             }
         }
@@ -204,7 +190,7 @@ public class MusicasUsuarioSpotifyDto {
         @Generated
         public String toString() {
             String var10000 = this.getName();
-            return "MusicasUsuarioSpotifyDto.Track(name=" + var10000 + ", artists=" + String.valueOf(this.getArtists()) + ", id=" + this.getId() + ", genero=" + this.getGenero() + ")";
+            return "MusicasUsuarioSpotifyDto.Track(name=" + var10000 + ", artists=" + this.getArtists() + ", id=" + this.getId() + ", genero=" + this.getGenero() + ")";
         }
 
         public static class Artist {
@@ -239,10 +225,9 @@ public class MusicasUsuarioSpotifyDto {
             public boolean equals(final Object o) {
                 if (o == this) {
                     return true;
-                } else if (!(o instanceof Artist)) {
+                } else if (!(o instanceof Artist other)) {
                     return false;
                 } else {
-                    Artist other = (Artist)o;
                     if (!other.canEqual(this)) {
                         return false;
                     } else {
@@ -259,14 +244,8 @@ public class MusicasUsuarioSpotifyDto {
                         Object this$id = this.getId();
                         Object other$id = other.getId();
                         if (this$id == null) {
-                            if (other$id != null) {
-                                return false;
-                            }
-                        } else if (!this$id.equals(other$id)) {
-                            return false;
-                        }
-
-                        return true;
+                            return other$id == null;
+                        } else return this$id.equals(other$id);
                     }
                 }
             }

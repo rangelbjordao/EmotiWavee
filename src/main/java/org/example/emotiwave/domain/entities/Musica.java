@@ -170,7 +170,7 @@ public class Musica {
     @Generated
     public String toString() {
         Long var10000 = this.getId();
-        return "Musica(id=" + var10000 + ", titulo=" + this.getTitulo() + ", artista=" + this.getArtista() + ", spotifyTrackId=" + this.getSpotifyTrackId() + ", letra=" + this.getLetra() + ", artistaId=" + this.getArtistaId() + ", genero=" + this.getGenero() + ", deleted=" + this.isDeleted() + ", analise=" + String.valueOf(this.getAnalise()) + ")";
+        return "Musica(id=" + var10000 + ", titulo=" + this.getTitulo() + ", artista=" + this.getArtista() + ", spotifyTrackId=" + this.getSpotifyTrackId() + ", letra=" + this.getLetra() + ", artistaId=" + this.getArtistaId() + ", genero=" + this.getGenero() + ", deleted=" + this.isDeleted() + ", analise=" + this.getAnalise() + ")";
     }
 
     @Generated

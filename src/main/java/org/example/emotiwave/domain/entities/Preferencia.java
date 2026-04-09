@@ -4,6 +4,6 @@ public enum Preferencia {
     CURTIDA,
     FAVORITA;
 
-    private Preferencia() {
+    Preferencia() {
     }
 }

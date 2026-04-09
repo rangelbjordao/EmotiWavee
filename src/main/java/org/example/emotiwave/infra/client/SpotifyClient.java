@@ -77,7 +77,7 @@ public class SpotifyClient {
             MultiValueMap<String, String> formData = new LinkedMultiValueMap();
             formData.add("grant_type", "refresh_token");
             formData.add("refresh_token", URLEncoder.encode(refreshToken, StandardCharsets.UTF_8));
-            return (AccessTokenResponseDto) ((WebClient.RequestBodySpec) ((WebClient.RequestBodySpec) this.webClient.post().uri("https://accounts.spotify.com/api/token", new Object[0])).header("Authorization", new String[]{"Basic " + basicAuth})).contentType(MediaType.APPLICATION_FORM_URLENCODED).bodyValue(formData).retrieve().bodyToMono(AccessTokenResponseDto.class).block();
+            return this.webClient.post().uri("https://accounts.spotify.com/api/token", new Object[0]).header("Authorization", new String[]{"Basic " + basicAuth}).contentType(MediaType.APPLICATION_FORM_URLENCODED).bodyValue(formData).retrieve().bodyToMono(AccessTokenResponseDto.class).block();
         } catch (Exception e) {
             throw new RuntimeException("Erro ao renovar access token do Spotify", e);
         }
@@ -86,9 +86,9 @@ public class SpotifyClient {
     public <T> T enviarRequisicaoSpotifyUtils(Usuario usuario, String url, ParameterizedTypeReference<T> responseType, @Nullable Long after) {
         try {
             String urlFinal = UriComponentsBuilder.fromHttpUrl(url).queryParamIfPresent("after", Optional.ofNullable(after)).toUriString();
-            return (T) this.webClient.get().uri(urlFinal, new Object[0]).header("Authorization", new String[]{"Bearer " + usuario.getSpotifyInfo().getAccessToken()}).retrieve().bodyToMono(responseType).block();
+            return this.webClient.get().uri(urlFinal, new Object[0]).header("Authorization", new String[]{"Bearer " + usuario.getSpotifyInfo().getAccessToken()}).retrieve().bodyToMono(responseType).block();
         } catch (WebClientResponseException e) {
-            throw new RuntimeException("Falha ao consultar Spotify: " + String.valueOf(e.getStatusCode()) + " - " + e.getResponseBodyAsString(), e);
+            throw new RuntimeException("Falha ao consultar Spotify: " + e.getStatusCode() + " - " + e.getResponseBodyAsString(), e);
         } catch (Exception e) {
             throw new RuntimeException("Erro inesperado ao chamar a API do Spotify", e);
         }

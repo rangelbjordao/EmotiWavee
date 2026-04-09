@@ -27,7 +27,7 @@ public class TopMusicasSpotifyService {
     private final MusicaMapper musicaMapper;
     private final SpotifyService spotifyService;
     private final GeniusLyricsService geniusLyricsService;
-    private UsuarioMusicaRepository usuarioMusicaRepository;
+    private final UsuarioMusicaRepository usuarioMusicaRepository;
 
     public TopMusicasSpotifyService(MusicaRepository musicaRepository, MusicaMapper musicaMapper, SpotifyService spotifyService, GeniusLyricsService geniusLyricsService, UsuarioRepository usuarioRepository, SpotifyClient spotifyClient, UsuarioMusicaRepository usuarioMusicaRepository) {
         this.musicaRepository = musicaRepository;

@@ -54,22 +54,22 @@ public class SpotifyService {
     }
 
     public MusicasDoDiaSpotifyDto enviarRequisicaoSpotifyUtils(Usuario usuario, String url, ParameterizedTypeReference<MusicasDoDiaSpotifyDto> parameterizedTypeReference, Long after) {
-        return (MusicasDoDiaSpotifyDto)this.spotifyClient.enviarRequisicaoSpotifyUtils(usuario, url, parameterizedTypeReference, after);
+        return this.spotifyClient.enviarRequisicaoSpotifyUtils(usuario, url, parameterizedTypeReference, after);
     }
 
     public MusicasUsuarioSpotifyDto enviarRequisicaoSpotifyUtilsV2(Usuario usuario, String url, ParameterizedTypeReference<MusicasUsuarioSpotifyDto> parameterizedTypeReference, Long after) {
-        return (MusicasUsuarioSpotifyDto)this.spotifyClient.enviarRequisicaoSpotifyUtils(usuario, url, parameterizedTypeReference, after);
+        return this.spotifyClient.enviarRequisicaoSpotifyUtils(usuario, url, parameterizedTypeReference, after);
     }
 
     public GeneroMusicaSpotifyDto getGeneros(String artistaId, Usuario usuario, ParameterizedTypeReference<GeneroMusicaSpotifyDto> parameterizedTypeReference, Long after, String url) {
         String urlMontada = url + "/" + artistaId;
-        return (GeneroMusicaSpotifyDto)this.spotifyClient.enviarRequisicaoSpotifyUtils(usuario, urlMontada, parameterizedTypeReference, after);
+        return this.spotifyClient.enviarRequisicaoSpotifyUtils(usuario, urlMontada, parameterizedTypeReference, after);
     }
 
     public MusicaSimplesDto buscarMusica(String artista, String titulo, Usuario usuario, ParameterizedTypeReference<MusicaSimplesDto> parameterizedTypeReference, String url) {
         String query = "artist:" + artista + " track:" + titulo;
         String urlMontada = "https://api.spotify.com/v1/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&type=track&limit=1";
-        return (MusicaSimplesDto)this.spotifyClient.enviarRequisicaoSpotifyUtils(usuario, urlMontada, parameterizedTypeReference, (Long)null);
+        return this.spotifyClient.enviarRequisicaoSpotifyUtils(usuario, urlMontada, parameterizedTypeReference, null);
     }
 
     public void desconectar(Usuario usuario) {

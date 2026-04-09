@@ -113,10 +113,9 @@ public class AnaliseMusica {
     public boolean equals(final Object o) {
         if (o == this) {
             return true;
-        } else if (!(o instanceof AnaliseMusica)) {
+        } else if (!(o instanceof AnaliseMusica other)) {
             return false;
         } else {
-            AnaliseMusica other = (AnaliseMusica)o;
             if (!other.canEqual(this)) {
                 return false;
             } else {
@@ -163,14 +162,8 @@ public class AnaliseMusica {
                 Object this$musica = this.getMusica();
                 Object other$musica = other.getMusica();
                 if (this$musica == null) {
-                    if (other$musica != null) {
-                        return false;
-                    }
-                } else if (!this$musica.equals(other$musica)) {
-                    return false;
-                }
-
-                return true;
+                    return other$musica == null;
+                } else return this$musica.equals(other$musica);
             }
         }
     }
@@ -200,7 +193,7 @@ public class AnaliseMusica {
     @Generated
     public String toString() {
         Long var10000 = this.getId();
-        return "AnaliseMusica(id=" + var10000 + ", label=" + this.getLabel() + ", score=" + String.valueOf(this.getScore()) + ", analisado_em=" + String.valueOf(this.getAnalisado_em()) + ", musica=" + String.valueOf(this.getMusica()) + ")";
+        return "AnaliseMusica(id=" + var10000 + ", label=" + this.getLabel() + ", score=" + this.getScore() + ", analisado_em=" + this.getAnalisado_em() + ", musica=" + this.getMusica() + ")";
     }
 }
 
