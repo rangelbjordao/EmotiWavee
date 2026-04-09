@@ -1,5 +1,7 @@
 package org.example.emotiwave.application.dto.in;
 
+import lombok.Generated;
+
 public class MusicaSimplesDto {
     private String titulo;
     private String artista;
@@ -8,70 +10,186 @@ public class MusicaSimplesDto {
     private String genero;
     private String imagemUrl;
 
-    public MusicaSimplesDto() {
+    @Generated
+    public String getTitulo() {
+        return this.titulo;
     }
 
-    public MusicaSimplesDto(
-            String titulo,
-            String artista,
-            String spotifyTrackId,
-            String artistaId,
-            String genero,
-            String imagemUrl
-    ) {
+    @Generated
+    public String getArtista() {
+        return this.artista;
+    }
+
+    @Generated
+    public String getSpotifyTrackId() {
+        return this.spotifyTrackId;
+    }
+
+    @Generated
+    public String getArtistaId() {
+        return this.artistaId;
+    }
+
+    @Generated
+    public String getGenero() {
+        return this.genero;
+    }
+
+    // 👇 NOVO
+    @Generated
+    public String getImagemUrl() {
+        return this.imagemUrl;
+    }
+
+    @Generated
+    public void setTitulo(final String titulo) {
         this.titulo = titulo;
+    }
+
+    @Generated
+    public void setArtista(final String artista) {
         this.artista = artista;
+    }
+
+    @Generated
+    public void setSpotifyTrackId(final String spotifyTrackId) {
         this.spotifyTrackId = spotifyTrackId;
+    }
+
+    @Generated
+    public void setArtistaId(final String artistaId) {
         this.artistaId = artistaId;
+    }
+
+    @Generated
+    public void setGenero(final String genero) {
         this.genero = genero;
+    }
+
+    // 👇 NOVO
+    @Generated
+    public void setImagemUrl(final String imagemUrl) {
         this.imagemUrl = imagemUrl;
     }
 
-    public String getTitulo() {
-        return titulo;
+    @Generated
+    public boolean equals(final Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof MusicaSimplesDto other)) {
+            return false;
+        } else {
+            if (!other.canEqual(this)) {
+                return false;
+            } else {
+                Object this$titulo = this.getTitulo();
+                Object other$titulo = other.getTitulo();
+                if (this$titulo == null) {
+                    if (other$titulo != null) {
+                        return false;
+                    }
+                } else if (!this$titulo.equals(other$titulo)) {
+                    return false;
+                }
+
+                Object this$artista = this.getArtista();
+                Object other$artista = other.getArtista();
+                if (this$artista == null) {
+                    if (other$artista != null) {
+                        return false;
+                    }
+                } else if (!this$artista.equals(other$artista)) {
+                    return false;
+                }
+
+                Object this$spotifyTrackId = this.getSpotifyTrackId();
+                Object other$spotifyTrackId = other.getSpotifyTrackId();
+                if (this$spotifyTrackId == null) {
+                    if (other$spotifyTrackId != null) {
+                        return false;
+                    }
+                } else if (!this$spotifyTrackId.equals(other$spotifyTrackId)) {
+                    return false;
+                }
+
+                Object this$artistaId = this.getArtistaId();
+                Object other$artistaId = other.getArtistaId();
+                if (this$artistaId == null) {
+                    if (other$artistaId != null) {
+                        return false;
+                    }
+                } else if (!this$artistaId.equals(other$artistaId)) {
+                    return false;
+                }
+
+                Object this$genero = this.getGenero();
+                Object other$genero = other.getGenero();
+                if (this$genero == null) {
+                    if (other$genero != null) {
+                        return false;
+                    }
+                } else if (!this$genero.equals(other$genero)) {
+                    return false;
+                }
+
+                Object this$imagemUrl = this.getImagemUrl();
+                Object other$imagemUrl = other.getImagemUrl();
+                if (this$imagemUrl == null) {
+                    return other$imagemUrl == null;
+                } else return this$imagemUrl.equals(other$imagemUrl);
+            }
+        }
     }
 
-    public String getArtista() {
-        return artista;
+    @Generated
+    protected boolean canEqual(final Object other) {
+        return other instanceof MusicaSimplesDto;
     }
 
-    public String getSpotifyTrackId() {
-        return spotifyTrackId;
+    @Generated
+    public int hashCode() {
+        int PRIME = 59;
+        int result = 1;
+        Object $titulo = this.getTitulo();
+        result = result * 59 + ($titulo == null ? 43 : $titulo.hashCode());
+        Object $artista = this.getArtista();
+        result = result * 59 + ($artista == null ? 43 : $artista.hashCode());
+        Object $spotifyTrackId = this.getSpotifyTrackId();
+        result = result * 59 + ($spotifyTrackId == null ? 43 : $spotifyTrackId.hashCode());
+        Object $artistaId = this.getArtistaId();
+        result = result * 59 + ($artistaId == null ? 43 : $artistaId.hashCode());
+        Object $genero = this.getGenero();
+        result = result * 59 + ($genero == null ? 43 : $genero.hashCode());
+        Object $imagemUrl = this.getImagemUrl();
+        result = result * 59 + ($imagemUrl == null ? 43 : $imagemUrl.hashCode());
+        return result;
     }
 
-    public String getArtistaId() {
-        return artistaId;
+    @Generated
+    public String toString() {
+        return "MusicaSimplesDto(titulo=" + this.getTitulo()
+                + ", artista=" + this.getArtista()
+                + ", spotifyTrackId=" + this.getSpotifyTrackId()
+                + ", artistaId=" + this.getArtistaId()
+                + ", genero=" + this.getGenero()
+                + ", imagemUrl=" + this.getImagemUrl() + ")";
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public String getImagemUrl() {
-        return imagemUrl;
-    }
-
-    public void setTitulo(String titulo) {
+    @Generated
+    public MusicaSimplesDto(final String titulo, final String artista, final String spotifyTrackId, final String artistaId, final String genero) {
         this.titulo = titulo;
-    }
-
-    public void setArtista(String artista) {
         this.artista = artista;
-    }
-
-    public void setSpotifyTrackId(String spotifyTrackId) {
         this.spotifyTrackId = spotifyTrackId;
-    }
-
-    public void setArtistaId(String artistaId) {
         this.artistaId = artistaId;
-    }
-
-    public void setGenero(String genero) {
         this.genero = genero;
     }
 
-    public void setImagemUrl(String imagemUrl) {
+    public MusicaSimplesDto(final String titulo, final String artista, final String spotifyTrackId, final String artistaId, final String genero, final String imagemUrl) {
+        this.titulo = titulo;
+        this.artista = artista;
+        this.spotifyTrackId = spotifyTrackId;
+        this.artistaId = artistaId;
+        this.genero = genero;
         this.imagemUrl = imagemUrl;
     }
 }
