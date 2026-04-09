@@ -27,10 +27,7 @@ public class TopMusicasSpotifyService {
     private final MusicaMapper musicaMapper;
     private final SpotifyService spotifyService;
     private final GeniusLyricsService geniusLyricsService;
-    String SPOTIFY_TOP_TRACKS_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10";
-    String SPOTIFY_ARTIST_URL = "https://api.spotify.com/v1/artists";
     private UsuarioMusicaRepository usuarioMusicaRepository;
-    Instant now = Instant.now();
 
     public TopMusicasSpotifyService(MusicaRepository musicaRepository, MusicaMapper musicaMapper, SpotifyService spotifyService, GeniusLyricsService geniusLyricsService, UsuarioRepository usuarioRepository, SpotifyClient spotifyClient, UsuarioMusicaRepository usuarioMusicaRepository) {
         this.musicaRepository = musicaRepository;
@@ -47,7 +44,7 @@ public class TopMusicasSpotifyService {
         int limitFinal = Math.max(1, Math.min(limit, 10));
 
         String spotifyTopTracksUrl =
-                "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=" + limitFinal;
+                "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=" + limitFinal;
 
         MusicasUsuarioSpotifyDto dtoSpotify = this.spotifyService.enviarRequisicaoSpotifyUtilsV2(
                 usuario,
