@@ -1,8 +1,11 @@
 package org.example.emotiwave.infra.client;
 
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+
 import java.util.Map;
 
 @Component
@@ -18,9 +21,16 @@ public class ApexClient {
     }
 
     public void enviarRegistro(Long usuarioId, String humor, String detalhes) {
+        String path = "/registros";
+
         try {
-            webClient.post()
-                    .uri("/registros")
+            System.out.println("=== CHAMANDO APEX: ENVIAR REGISTRO ===");
+            System.out.println("URL: " + APEX_BASE_URL + path);
+            System.out.println("Payload usuario_id: " + usuarioId);
+            System.out.println("Payload humor: " + humor);
+
+            String resposta = webClient.post()
+                    .uri(path)
                     .contentType(MediaType.APPLICATION_JSON)
                     .bodyValue(Map.of(
                             "usuario_id", usuarioId,
@@ -30,21 +40,54 @@ public class ApexClient {
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
+
+            System.out.println("Sucesso ao enviar para APEX.");
+            System.out.println("Resposta: " + resposta);
+
+        } catch (WebClientResponseException e) {
+            System.out.println("Erro HTTP ao enviar para APEX");
+            System.out.println("Status: " + e.getStatusCode());
+            System.out.println("Body: " + e.getResponseBodyAsString());
         } catch (Exception e) {
-            System.out.println("Erro ao enviar para APEX: " + e.getMessage());
+            System.out.println("Erro geral ao enviar para APEX: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     public Map buscarRelatorio(Long usuarioId) {
+        String path = "/relatorio?usuario_id=" + usuarioId;
+
         try {
-            return webClient.get()
-                    .uri("/relatorio?usuario_id=" + usuarioId)
+            System.out.println("=== CHAMANDO APEX: BUSCAR RELATORIO ===");
+            System.out.println("URL: " + APEX_BASE_URL + path);
+
+            Map resposta = webClient.get()
+                    .uri(path)
                     .retrieve()
                     .bodyToMono(Map.class)
                     .block();
+
+            System.out.println("Sucesso ao buscar relatório APEX.");
+            System.out.println("Resposta: " + resposta);
+
+            return resposta;
+
+        } catch (WebClientResponseException e) {
+            System.out.println("Erro HTTP ao buscar relatório APEX");
+            System.out.println("Status: " + e.getStatusCode());
+            System.out.println("Body: " + e.getResponseBodyAsString());
+            return Map.of(
+                    "erro", true,
+                    "status", e.getStatusCode().value(),
+                    "body", e.getResponseBodyAsString()
+            );
         } catch (Exception e) {
-            System.out.println("Erro ao buscar relatório APEX: " + e.getMessage());
-            return Map.of();
+            System.out.println("Erro geral ao buscar relatório APEX: " + e.getMessage());
+            e.printStackTrace();
+            return Map.of(
+                    "erro", true,
+                    "mensagem", e.getMessage()
+            );
         }
     }
 }

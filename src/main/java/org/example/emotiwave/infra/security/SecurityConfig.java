@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**",
                                 "/status",
+                                "/teste-apex",
                                 "/spotify/callback",
                                 "/spotify/auth",
                                 "/spotify/user-top-read",
@@ -30,7 +31,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/usuarios",
                                 "/h2-console/**",
-                                "/login","/register").permitAll()
+                                "/login", "/register").permitAll()
 
                         .anyRequest().authenticated()
 
