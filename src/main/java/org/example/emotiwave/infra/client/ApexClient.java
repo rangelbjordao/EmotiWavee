@@ -53,41 +53,4 @@ public class ApexClient {
             e.printStackTrace();
         }
     }
-
-    public Map buscarRelatorio(Long usuarioId) {
-        String path = "/relatorio?usuario_id=" + usuarioId;
-
-        try {
-            System.out.println("=== CHAMANDO APEX: BUSCAR RELATORIO ===");
-            System.out.println("URL: " + APEX_BASE_URL + path);
-
-            Map resposta = webClient.get()
-                    .uri(path)
-                    .retrieve()
-                    .bodyToMono(Map.class)
-                    .block();
-
-            System.out.println("Sucesso ao buscar relatório APEX.");
-            System.out.println("Resposta: " + resposta);
-
-            return resposta;
-
-        } catch (WebClientResponseException e) {
-            System.out.println("Erro HTTP ao buscar relatório APEX");
-            System.out.println("Status: " + e.getStatusCode());
-            System.out.println("Body: " + e.getResponseBodyAsString());
-            return Map.of(
-                    "erro", true,
-                    "status", e.getStatusCode().value(),
-                    "body", e.getResponseBodyAsString()
-            );
-        } catch (Exception e) {
-            System.out.println("Erro geral ao buscar relatório APEX: " + e.getMessage());
-            e.printStackTrace();
-            return Map.of(
-                    "erro", true,
-                    "mensagem", e.getMessage()
-            );
-        }
-    }
 }
