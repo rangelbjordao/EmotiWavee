@@ -97,17 +97,11 @@ public class HabitoDiarioService {
             case "Sono" -> validarFaixa(valor, 1, 12, "Sono");
             case "Água" -> validarFaixa(valor, 1, 20, "Água");
             case "Exercício" -> validarFaixa(valor, 1, 300, "Exercício");
-            case "Tempo de tela" -> validarFaixa(valor, 1, 12, "Tempo de tela");
             case "Estudo" -> validarFaixa(valor, 1, 12, "Estudo");
             default -> throw new RuntimeException("Atividade inválida.");
         }
 
         switch (atividade) {
-            case "Sono", "Tempo de tela", "Estudo" -> {
-                if (!unidade.equals("horas")) {
-                    throw new RuntimeException("Unidade inválida para " + atividade + ".");
-                }
-            }
             case "Água" -> {
                 if (!unidade.equals("copos")) {
                     throw new RuntimeException("Unidade inválida para Água.");
