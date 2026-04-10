@@ -73,7 +73,7 @@ public class UsuarioMusicaController {
     @GetMapping({"/musicas/spotify/top"})
     public ResponseEntity userTopRead(
             @AuthenticationPrincipal Usuario usuario,
-            @RequestParam(defaultValue = "5") int limit
+            @RequestParam(defaultValue = "10") int limit
     ) {
         List<MusicaSimplesDto> response = this.topMusicasSpotifyService.buscarTopMusicasSpotify(usuario, limit);
         return ResponseEntity.ok(response);
