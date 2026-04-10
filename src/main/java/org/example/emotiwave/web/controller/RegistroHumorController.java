@@ -55,8 +55,7 @@ public class RegistroHumorController {
     private ApexClient apexClient;
 
     @GetMapping("/relatorio-semanal")
-    public ResponseEntity<Map> relatórioSemanal(@AuthenticationPrincipal Usuario usuario) {
-        Map relatorio = apexClient.buscarRelatorio(usuario.getId());
-        return ResponseEntity.ok(relatorio);
+    public ResponseEntity<Map<String, Object>> relatorioSemanal(@AuthenticationPrincipal Usuario usuario) {
+        return ResponseEntity.ok(service.gerarRelatorioSemanal(usuario));
     }
 }
