@@ -33,18 +33,19 @@ public class GroqClient {
                 O humor médio do usuário hoje é:
                 %s
                 
-                Gere uma recomendação curta em português.
+                Gere uma recomendação curta em português brasileiro natural.
                 
                 Regras obrigatórias:
                 - apenas 1 frase
                 - máximo 14 palavras
-                - linguagem simples
+                - linguagem simples e natural
                 - tom leve e acolhedor
                 - foco em bem-estar digital
                 - sugira hábitos genéricos e simples
                 - não cite horários do dia
                 - não invente funcionalidades do app
                 - não mencione meditação, terapia ou técnicas especiais
+                - evite construções formais
                 - não use emojis
                 - não use aspas
                 - não use exclamações
