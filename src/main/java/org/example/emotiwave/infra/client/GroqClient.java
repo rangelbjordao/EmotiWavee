@@ -30,16 +30,21 @@ public class GroqClient {
         String historico = String.join(", ", humores);
 
         String prompt = """
-                Você é uma IA de bem-estar digital integrada ao EmotiWave, \
-                um app que monitora o impacto do consumo digital na saúde emocional.
+                Você é uma IA de bem-estar digital do aplicativo EmotiWave.
                 
-                Histórico emocional do usuário nos últimos dias:
+                O usuário registrou os seguintes humores hoje:
                 %s
                 
-                Com base nesse histórico, gere uma recomendação curta (máximo 3 frases), \
-                acolhedora e positiva em português. \
-                Foque em hábitos digitais saudáveis e bem-estar emocional. \
-                Não use listas, apenas texto corrido.
+                Gere uma recomendação curta e acolhedora em português.
+                
+                Regras:
+                - máximo 2 frases
+                - texto curto
+                - linguagem simples
+                - foco em bem-estar digital
+                - não use listas
+                - não faça análises profundas
+                - soe como dica rápida do dia
                 """.formatted(historico);
 
         Map<String, Object> requestBody = new LinkedHashMap<>();
