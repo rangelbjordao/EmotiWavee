@@ -1,0 +1,77 @@
+package org.example.emotiwave.infra.client;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
+import java.util.Map;
+
+@Component
+public class GroqClient {
+
+    private final WebClient webClient;
+
+    @Value("${groq.api.key}")
+    private String apiKey;
+
+    public GroqClient() {
+        this.webClient = WebClient.builder()
+                .baseUrl("https://api.groq.com/openai/v1")
+                .build();
+    }
+
+    public String gerarRecomendacao(List<String> humores) {
+
+        String historico = String.join(", ", humores);
+
+        String prompt = """
+                Você é uma IA de bem-estar digital integrada ao EmotiWave, \
+                um app que monitora o impacto do consumo digital na saúde emocional.
+                
+                Histórico emocional do usuário nos últimos dias:
+                %s
+                
+                Com base nesse histórico, gere uma recomendação curta (máximo 3 frases), \
+                acolhedora e positiva em português. \
+                Foque em hábitos digitais saudáveis e bem-estar emocional. \
+                Não use listas, apenas texto corrido.
+                """.formatted(historico);
+
+        Map<String, Object> body = Map.of(
+                "model", "llama3-8b-8192",
+                "messages", List.of(
+                        Map.of(
+                                "role", "user",
+                                "content", prompt
+                        )
+                )
+        );
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> response = webClient.post()
+                .uri("/chat/completions")
+                .header("Authorization", "Bearer " + apiKey)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(body)
+                .retrieve()
+                .bodyToMono(Map.class)
+                .block();
+
+        try {
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> choices =
+                    (List<Map<String, Object>>) response.get("choices");
+
+            @SuppressWarnings("unchecked")
+            Map<String, Object> message =
+                    (Map<String, Object>) choices.get(0).get("message");
+
+            return message.get("content").toString();
+
+        } catch (Exception e) {
+            return "Não foi possível gerar recomendação no momento. Cuide-se!";
+        }
+    }
+}
