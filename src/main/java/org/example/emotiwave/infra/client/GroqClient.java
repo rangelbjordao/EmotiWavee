@@ -42,7 +42,7 @@ public class GroqClient {
                 """.formatted(historico);
 
         Map<String, Object> requestBody = new LinkedHashMap<>();
-        requestBody.put("model", "llama3-8b-8192");
+        requestBody.put("model", "llama-3.1-8b-instant");
         requestBody.put("messages", List.of(
                 Map.of("role", "user", "content", prompt)
         ));
