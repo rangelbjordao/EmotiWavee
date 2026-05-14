@@ -22,13 +22,17 @@ public class RecomendacaoIAService {
     }
 
     public String gerarParaUsuario(Usuario usuario) {
-        LocalDateTime seteDiasAtras = LocalDateTime.now().minusDays(7);
+        LocalDateTime inicioDoDia = LocalDateTime.now()
+                .withHour(0)
+                .withMinute(0)
+                .withSecond(0)
+                .withNano(0);
 
         List<String> humores = registroHumorRepository
                 .findByUsuarioIdOrderByCriadoEmDesc(usuario.getId())
                 .stream()
                 .filter(r -> r.getCriadoEm() != null
-                        && r.getCriadoEm().isAfter(seteDiasAtras))
+                        && r.getCriadoEm().isAfter(inicioDoDia))
                 .map(RegistroHumor::getHumor)
                 .toList();
 
