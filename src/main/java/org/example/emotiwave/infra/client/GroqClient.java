@@ -1,6 +1,7 @@
 package org.example.emotiwave.infra.client;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -54,7 +55,7 @@ public class GroqClient {
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(requestBody)
                 .retrieve()
-                .onStatus(status -> status.is4xxClientError(), clientResponse ->
+                .onStatus(HttpStatusCode::is4xxClientError, clientResponse ->
                         clientResponse.bodyToMono(String.class)
                                 .doOnNext(errorBody ->
                                         System.err.println("Groq erro 4xx: " + errorBody))
@@ -64,13 +65,17 @@ public class GroqClient {
                 .block();
 
         try {
+            if (groqResponse == null) {
+                return "Não foi possível gerar recomendação no momento. Cuide-se!";
+            }
+
             @SuppressWarnings("unchecked")
             List<Map<String, Object>> choices =
                     (List<Map<String, Object>>) groqResponse.get("choices");
 
             @SuppressWarnings("unchecked")
             Map<String, Object> message =
-                    (Map<String, Object>) choices.get(0).get("message");
+                    (Map<String, Object>) choices.getFirst().get("message");
 
             return message.get("content").toString();
 
