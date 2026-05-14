@@ -23,11 +23,12 @@ public class IAController {
     }
 
     @GetMapping("/recomendacao")
-    public ResponseEntity<Map<String, String>> recomendacao(
-            @AuthenticationPrincipal Usuario usuario) {
+    public ResponseEntity<?> recomendacao(
+            @AuthenticationPrincipal Object usuario) {
 
-        String recomendacao = recomendacaoIAService.gerarParaUsuario(usuario);
+        System.out.println("USUARIO:");
+        System.out.println(usuario);
 
-        return ResponseEntity.ok(Map.of("recomendacao", recomendacao));
+        return ResponseEntity.ok("teste funcionando");
     }
 }
