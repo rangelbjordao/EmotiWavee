@@ -1,5 +1,6 @@
 package org.example.emotiwave.application.service.iaService;
 
+import org.example.emotiwave.application.dto.out.RecomendacaoIAResponse;
 import org.example.emotiwave.domain.entities.RegistroHumor;
 import org.example.emotiwave.domain.entities.Usuario;
 import org.example.emotiwave.infra.client.GroqClient;
@@ -21,7 +22,7 @@ public class RecomendacaoIAService {
         this.registroHumorRepository = registroHumorRepository;
     }
 
-    public String gerarParaUsuario(Usuario usuario) {
+    public RecomendacaoIAResponse gerarParaUsuario(Usuario usuario) {
         LocalDateTime inicioDoDia = LocalDateTime.now()
                 .withHour(0)
                 .withMinute(0)
@@ -37,9 +38,19 @@ public class RecomendacaoIAService {
                 .toList();
 
         if (humores.isEmpty()) {
-            return "Registre seu humor hoje para receber uma recomendação personalizada.";
+            return new RecomendacaoIAResponse(
+                    "Registre seu humor hoje para receber uma recomendação personalizada.",
+                    "Neutro"
+            );
         }
 
-        return groqClient.gerarRecomendacao(humores);
+        String humorAtual = humores.getFirst();
+
+        String recomendacao = groqClient.gerarRecomendacao(humores);
+
+        return new RecomendacaoIAResponse(
+                recomendacao,
+                humorAtual
+        );
     }
 }
