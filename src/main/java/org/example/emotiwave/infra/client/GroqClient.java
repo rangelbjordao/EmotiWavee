@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,30 +41,32 @@ public class GroqClient {
                 Não use listas, apenas texto corrido.
                 """.formatted(historico);
 
-        Map<String, Object> body = Map.of(
-                "model", "llama3-8b-8192",
-                "messages", List.of(
-                        Map.of(
-                                "role", "user",
-                                "content", prompt
-                        )
-                )
-        );
+        Map<String, Object> requestBody = new LinkedHashMap<>();
+        requestBody.put("model", "llama3-8b-8192");
+        requestBody.put("messages", List.of(
+                Map.of("role", "user", "content", prompt)
+        ));
 
         @SuppressWarnings("unchecked")
-        Map<String, Object> response = webClient.post()
+        Map<String, Object> groqResponse = webClient.post()
                 .uri("/chat/completions")
                 .header("Authorization", "Bearer " + apiKey)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(body)
+                .bodyValue(requestBody)
                 .retrieve()
+                .onStatus(status -> status.is4xxClientError(), clientResponse ->
+                        clientResponse.bodyToMono(String.class)
+                                .doOnNext(errorBody ->
+                                        System.err.println("Groq erro 4xx: " + errorBody))
+                                .then(Mono.error(new RuntimeException("Erro na API do Groq")))
+                )
                 .bodyToMono(Map.class)
                 .block();
 
         try {
             @SuppressWarnings("unchecked")
             List<Map<String, Object>> choices =
-                    (List<Map<String, Object>>) response.get("choices");
+                    (List<Map<String, Object>>) groqResponse.get("choices");
 
             @SuppressWarnings("unchecked")
             Map<String, Object> message =
