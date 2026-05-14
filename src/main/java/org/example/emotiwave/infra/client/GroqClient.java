@@ -37,17 +37,18 @@ public class GroqClient {
                 
                 Gere uma recomendação curta em português.
                 
-                Regras:
-                - máximo 2 frases
-                - linguagem natural e simples
+                Regras obrigatórias:
+                - apenas 1 frase
+                - no máximo 18 palavras
+                - linguagem simples
                 - tom leve e moderno
-                - pareça uma dica rápida de aplicativo
-                - foque em bem-estar digital
-                - sugira pequenas ações do dia
-                - evite frases motivacionais exageradas
-                - evite parecer terapeuta
-                - não use listas
-                - não use aspas
+                - pareça dica rápida de aplicativo
+                - foco em bem-estar digital
+                - sem entusiasmo exagerado
+                - sem frases motivacionais
+                - sem emojis
+                - sem aspas
+                - não use exclamações
                 """.formatted(historico);
 
         Map<String, Object> requestBody = new LinkedHashMap<>();
