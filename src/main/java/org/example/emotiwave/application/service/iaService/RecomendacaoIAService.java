@@ -37,8 +37,7 @@ public class RecomendacaoIAService {
                 .toList();
 
         if (humores.isEmpty()) {
-            return "Você ainda não registrou seus humores essa semana. " +
-                    "Comece hoje para receber recomendações personalizadas!";
+            return "Registre seu humor hoje para receber uma recomendação personalizada.";
         }
 
         return groqClient.gerarRecomendacao(humores);
