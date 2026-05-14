@@ -40,14 +40,15 @@ public class GroqClient {
                 Regras obrigatórias:
                 - apenas 1 frase
                 - no máximo 18 palavras
-                - linguagem simples
+                - linguagem simples e natural
                 - tom leve e moderno
-                - pareça dica rápida de aplicativo
                 - foco em bem-estar digital
-                - sem entusiasmo exagerado
-                - sem frases motivacionais
-                - sem emojis
-                - sem aspas
+                - sugira hábitos simples do dia
+                - não invente funcionalidades do aplicativo
+                - não mencione meditação, terapia ou técnicas especiais
+                - não use frases motivacionais exageradas
+                - não use emojis
+                - não use aspas
                 - não use exclamações
                 """.formatted(historico);
 
