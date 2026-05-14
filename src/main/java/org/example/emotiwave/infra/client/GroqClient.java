@@ -25,32 +25,31 @@ public class GroqClient {
                 .build();
     }
 
-    public String gerarRecomendacao(List<String> humores) {
-
-        String historico = String.join(", ", humores);
+    public String gerarRecomendacao(String humorMedio) {
 
         String prompt = """
                 Você é a IA do aplicativo EmotiWave.
                 
-                O usuário registrou estes humores hoje:
+                O humor médio do usuário hoje é:
                 %s
                 
                 Gere uma recomendação curta em português.
                 
                 Regras obrigatórias:
                 - apenas 1 frase
-                - no máximo 18 palavras
-                - linguagem simples e natural
-                - tom leve e moderno
+                - máximo 14 palavras
+                - linguagem simples
+                - tom leve e acolhedor
                 - foco em bem-estar digital
-                - sugira hábitos simples do dia
-                - não invente funcionalidades do aplicativo
+                - sugira hábitos genéricos e simples
+                - não cite horários do dia
+                - não invente funcionalidades do app
                 - não mencione meditação, terapia ou técnicas especiais
-                - não use frases motivacionais exageradas
                 - não use emojis
                 - não use aspas
                 - não use exclamações
-                """.formatted(historico);
+                - não descreva cenários específicos
+                """.formatted(humorMedio);
 
         Map<String, Object> requestBody = new LinkedHashMap<>();
         requestBody.put("model", "llama-3.1-8b-instant");
