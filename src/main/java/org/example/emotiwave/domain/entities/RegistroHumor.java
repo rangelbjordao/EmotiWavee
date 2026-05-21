@@ -32,6 +32,7 @@ public class RegistroHumor {
     @Setter
     private String detalhes;
 
+    @Setter
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
@@ -40,14 +41,28 @@ public class RegistroHumor {
         this.criadoEm = LocalDateTime.now(ZoneOffset.UTC);
     }
 
-    public Long getId() { return id; }
-    public Usuario getUsuario() { return usuario; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getHumor() { return humor; }
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-    public List<String> getAtividades() { return atividades; }
+    public String getHumor() {
+        return humor;
+    }
 
-    public String getDetalhes() { return detalhes; }
+    public List<String> getAtividades() {
+        return atividades;
+    }
 
-    public LocalDateTime getCriadoEm() { return criadoEm; }
+    public String getDetalhes() {
+        return detalhes;
+    }
+
+    public LocalDateTime getCriadoEm() {
+        return criadoEm;
+    }
+
 }
