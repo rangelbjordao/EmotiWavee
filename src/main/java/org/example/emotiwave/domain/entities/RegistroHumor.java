@@ -3,7 +3,7 @@ package org.example.emotiwave.domain.entities;
 import jakarta.persistence.*;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -32,11 +32,11 @@ public class RegistroHumor {
     private String detalhes;
 
     @Column(name = "criado_em")
-    private Instant criadoEm;
+    private LocalDateTime criadoEm;
 
     @PrePersist
     public void prePersist() {
-        this.criadoEm = Instant.now();
+        this.criadoEm = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
@@ -48,5 +48,5 @@ public class RegistroHumor {
 
     public String getDetalhes() { return detalhes; }
 
-    public Instant getCriadoEm() { return criadoEm; }
+    public LocalDateTime getCriadoEm() { return criadoEm; }
 }
