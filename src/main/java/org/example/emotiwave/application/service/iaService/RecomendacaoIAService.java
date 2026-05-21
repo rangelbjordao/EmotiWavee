@@ -7,7 +7,7 @@ import org.example.emotiwave.infra.client.GroqClient;
 import org.example.emotiwave.infra.repository.RegistroHumorRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -42,11 +42,9 @@ public class RecomendacaoIAService {
     }
 
     public RecomendacaoIAResponse gerarParaUsuario(Usuario usuario) {
-        LocalDateTime inicioDoDia = LocalDateTime.now()
-                .withHour(0)
-                .withMinute(0)
-                .withSecond(0)
-                .withNano(0);
+        Instant inicioDoDia = java.time.LocalDate.now()
+                .atStartOfDay(java.time.ZoneOffset.UTC)
+                .toInstant();
 
         List<String> humores = registroHumorRepository
                 .findByUsuarioIdOrderByCriadoEmDesc(usuario.getId())
