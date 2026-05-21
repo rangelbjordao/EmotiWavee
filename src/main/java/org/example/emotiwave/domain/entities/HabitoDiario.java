@@ -35,6 +35,7 @@ public class HabitoDiario {
     @Column(name = "data_registro")
     private LocalDate dataRegistro;
 
+    @Setter
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
@@ -42,5 +43,4 @@ public class HabitoDiario {
     public void prePersist() {
         this.criadoEm = LocalDateTime.now();
     }
-
 }

@@ -29,6 +29,10 @@ public class HabitoDiarioService {
         habito.setUnidade(dto.getUnidade());
         habito.setDataRegistro(dto.getDataRegistro());
 
+        if (dto.getCriadoEm() != null) {
+            habito.setCriadoEm(dto.getCriadoEm().toLocalDateTime());
+        }
+
         return toDto(repository.save(habito));
     }
 
@@ -131,7 +135,7 @@ public class HabitoDiarioService {
                 h.getValor(),
                 h.getUnidade(),
                 h.getDataRegistro(),
-                h.getCriadoEm()
+                h.getCriadoEm().atOffset(java.time.ZoneOffset.UTC)
         );
     }
 }
