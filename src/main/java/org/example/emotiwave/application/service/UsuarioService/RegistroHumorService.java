@@ -28,6 +28,11 @@ public class RegistroHumorService {
         registro.setHumor(dto.humor());
         registro.setAtividades(dto.atividades());
         registro.setDetalhes(dto.detalhes());
+
+        if (dto.criadoEm() != null) {
+            registro.setCriadoEm(dto.criadoEm().toLocalDateTime());
+        }
+
         RegistroHumor salvo = repository.save(registro);
         // Envia para o APEX
         apexClient.enviarRegistro(usuario.getId(), dto.humor(), dto.detalhes());
@@ -60,8 +65,12 @@ public class RegistroHumorService {
 
     private RegistroHumorResponseDto toDto(RegistroHumor r) {
         return new RegistroHumorResponseDto(
-                r.getId(), r.getHumor(), r.getAtividades(),
-                r.getDetalhes(), r.getCriadoEm());
+                r.getId(),
+                r.getHumor(),
+                r.getAtividades(),
+                r.getDetalhes(),
+                r.getCriadoEm().atOffset(java.time.ZoneOffset.UTC)
+        );
     }
 
     public Map<String, Object> gerarRelatorioSemanal(Usuario usuario) {

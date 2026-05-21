@@ -1,6 +1,7 @@
 package org.example.emotiwave.application.dto.out;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public record RegistroHumorResponseDto(
@@ -8,5 +9,5 @@ public record RegistroHumorResponseDto(
         String humor,
         List<String> atividades,
         String detalhes,
-        LocalDateTime criadoEm
+        OffsetDateTime criadoEm
 ) {}
