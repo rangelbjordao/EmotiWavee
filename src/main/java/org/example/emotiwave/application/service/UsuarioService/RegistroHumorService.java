@@ -65,7 +65,7 @@ public class RegistroHumorService {
     }
 
     public Map<String, Object> gerarRelatorioSemanal(Usuario usuario) {
-        var limite = java.time.LocalDateTime.now().minusDays(7);
+        var limite = java.time.Instant.now().minus(java.time.Duration.ofDays(7));
 
         var registros = repository.findByUsuarioIdOrderByCriadoEmDesc(usuario.getId())
                 .stream()
@@ -100,7 +100,7 @@ public class RegistroHumorService {
         var ultimoRegistro = registros.stream()
                 .map(RegistroHumor::getCriadoEm)
                 .filter(java.util.Objects::nonNull)
-                .max(java.time.LocalDateTime::compareTo)
+                .max(java.time.Instant::compareTo)
                 .orElse(null);
 
         return Map.of(
