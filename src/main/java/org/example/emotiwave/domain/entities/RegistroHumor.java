@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Entity
@@ -36,7 +37,7 @@ public class RegistroHumor {
 
     @PrePersist
     public void prePersist() {
-        this.criadoEm = LocalDateTime.now();
+        this.criadoEm = LocalDateTime.now(ZoneOffset.UTC);
     }
 
     public Long getId() { return id; }
